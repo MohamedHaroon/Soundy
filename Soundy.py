@@ -7,6 +7,24 @@ import requests
 from tqdm import tqdm
 from bs4 import BeautifulSoup
 
+#sys.args
+#make A Tutorial to Download
+
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--url', type = str, help = "Enter the track URL that you want to download.")
+    parser.add_argument('--path', type = str, help = "Enter the path where the track will be downloaded."
+                        , default = os.getcwd() )
+    args = parser.parse_args()
+    try:
+        # make an instace of Track
+        if args.url: 
+            track = Track(args.url, args.path)
+            track.download_track()
+    except Exception as e:
+        return e 
 
 class Track:
     audio_format = ".mp3"
@@ -25,6 +43,23 @@ class Track:
         self.direct_link = self.download_link()
 
     
+    def check_track(self):
+        '''
+
+            requests the URL and parse it with BeautifulSoup4, and check the status afterwards
+            Checks if the connection was made successfuly and raise An error if not
+        '''
+        self.html = requests.get(self.url, allow_redirects=False)
+        self.soup = BeautifulSoup(self.html.content, 'html.parser')
+        status_code = self.html.status_code
+        if status_code == 200:
+            print("Starting the scraper,Buckle up!!")
+        else:
+            print("Couldn't reach the URL Try again after checking your connection and/or if you have access to the track.")
+            print("P.S. Downloading private tracks still in development.")
+            print("P.P.S. Have a Great day, Worthy one!")    
+            
+
     def clean_title(self):
         r'''
 
@@ -102,6 +137,7 @@ class Track:
             self.saving_directory = os.getcwd()
             self.download_track()                 
         
-# test_url = "https://soundcloud.com/mazagangy1/sayad"
-# test_track = Track(test_url) 
-# test_track.download_track()
+
+if __name__ == '__main__':
+    main()
+        
