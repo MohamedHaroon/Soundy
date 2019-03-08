@@ -15,3 +15,9 @@ Soundy is a command line application, You can download a specific track using th
 
 the default download path is the directory which you run the command from 
 
+You can also use Soundy in your own Python code, by importing from the `soundy` package:
+
+    >>> from soundy import soundy as sd
+    >>> track = sd.Track(url = "url", path = r"path")
+    >>> track.download_track()
+
