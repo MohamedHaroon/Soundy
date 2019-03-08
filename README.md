@@ -2,7 +2,7 @@
 A light-weight SoundCloud package to download and scrape tracks.
 
 ## Installation 
-you can install Soundy from [PyPI](https://pypi.org/project/realpython-reader/):
+you can install Soundy from [PyPI](https://pypi.org/project/soundy/):
 
     pip install soundy
 
@@ -14,3 +14,8 @@ Soundy is a command line application, You can download a specific track using th
     python -m soundy --url track-url-here --path path-here
 
 the default download path is the directory which you run the command from 
+
+You can also use Soundy in your own Python code, by importing from the `soundy` package:
+
+    >>> from soundy import soundy
+    >>> soundy.download_track(url = "url", path = r"path")
